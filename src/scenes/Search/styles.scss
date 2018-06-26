@@ -1,0 +1,26 @@
+@import '../../color';
+.main{
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  flex:1 auto;
+  position: relative;
+  .inner{
+    flex:1 auto;
+  }
+  footer{
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: auto;
+  }
+}
+.spotifyLink{
+  &:hover{
+    border-color: $green;
+  }
+
+}
+.autocomplete_wrap{
+  max-width: 320px;
+  margin: 0 auto;
+}
