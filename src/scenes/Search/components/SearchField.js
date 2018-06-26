@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link} from 'react-router-dom';
 class SearchField extends Component{
 
     constructor(props){
@@ -11,7 +11,7 @@ class SearchField extends Component{
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         fetch('http://127.0.0.1:8000/api/token')
             .then(res => res.json())
             .then(data => this.setState({
@@ -19,16 +19,21 @@ class SearchField extends Component{
             }));
     }
     fetchArtists(searchVal){
-        fetch(`https://api.spotify.com/v1/search?q=${searchVal}&type=artist&limit=5`, {
+        fetch(`https://api.spotify.com/v1/search?q=${searchVal}&type=artist&limit=5&market=US`, {
             headers: new Headers({
                 'Authorization' : 'Bearer ' + this.state.token
             })
         })
             .then(res => res.json())
-            .then(data => this.setState({
-                artists: data.artists.items
-            }));
-        console.log(this.state.artists);
+            .then(data => {
+                if(data.artists){
+                    this.setState({
+                        artists: data.artists.items
+                    })
+                }
+
+
+            });
     }
     enterArtists(event){
         event.preventDefault();
@@ -38,7 +43,6 @@ class SearchField extends Component{
         }
     }
     searchArtists(event){
-        console.log(event.target.value);
         this.setState({
            search: event.target.value
         });
@@ -54,7 +58,7 @@ class SearchField extends Component{
     render(){
         const artists = this.state.artists.map(artist => (
            <div key={artist.id} className="autocomplete_item">
-               <span>{artist.name}</span>
+               <Link to={`search/${artist.id}`}>{artist.name}</Link>
            </div>
         ));
         return(

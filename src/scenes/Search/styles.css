@@ -17,3 +17,18 @@
 .autocomplete_wrap {
   max-width: 320px;
   margin: 0 auto; }
+  .autocomplete_wrap .autocomplete {
+    background: #1b1f22; }
+    .autocomplete_wrap .autocomplete .autocomplete_item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+      .autocomplete_wrap .autocomplete .autocomplete_item a {
+        padding: 10px;
+        display: block;
+        font-weight: 300; }
+        .autocomplete_wrap .autocomplete .autocomplete_item a:hover {
+          border: 0; }
+      .autocomplete_wrap .autocomplete .autocomplete_item:last-child {
+        border: 0; }
+      .autocomplete_wrap .autocomplete .autocomplete_item:hover {
+        background: rgba(24, 136, 200, 0.2);
+        cursor: pointer; }
