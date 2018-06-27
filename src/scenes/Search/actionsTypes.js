@@ -1,0 +1,2 @@
+export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
+export const FIRST_ARTIST = 'FIRST_ARTIST';

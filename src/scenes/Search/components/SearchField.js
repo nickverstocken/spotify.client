@@ -1,69 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-class SearchField extends Component{
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { searchArtists, firstArtist } from "../searchActions";
 
-    constructor(props){
-        super(props);
-        this.state = {
-            search: '',
-            artists: [],
-            token: ''
-        }
+class SearchField extends Component {
+
+    searchArtists = (event) => {
+        this.props.searchArtists(event.target.value);
     }
-
-    componentDidMount(){
-        fetch('http://127.0.0.1:8000/api/token')
-            .then(res => res.json())
-            .then(data => this.setState({
-              token: data.access_token
-            }));
+    setSelectedArtist = (name) => (event) => {
+        this.props.firstArtist(name);
     }
-    fetchArtists(searchVal){
-        fetch(`https://api.spotify.com/v1/search?q=${searchVal}&type=artist&limit=5&market=US`, {
-            headers: new Headers({
-                'Authorization' : 'Bearer ' + this.state.token
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if(data.artists){
-                    this.setState({
-                        artists: data.artists.items
-                    })
-                }
-
-
-            });
-    }
-    enterArtists(event){
-        event.preventDefault();
-        if(event.keyCode === 13){
-            console.log(this.state.token);
-
-        }
-    }
-    searchArtists(event){
-        this.setState({
-           search: event.target.value
-        });
-        if(event.target.value.trim()){
-            this.fetchArtists(event.target.value);
-        }else{
-            this.setState({
-               artists: []
-            });
-        }
-
-    }
-    render(){
-        const artists = this.state.artists.map(artist => (
-           <div key={artist.id} className="autocomplete_item">
-               <Link to={`search/${artist.id}`}>{artist.name}</Link>
-           </div>
+    render() {
+        const artists = this.props.artists.map(artist => (
+            <div onClick={this.setSelectedArtist(artist.name)}  key={artist.id} className="autocomplete_item">
+                <Link to={`search/${artist.id}`}>{artist.name}</Link>
+            </div>
         ));
-        return(
+        return (
             <div className="autocomplete_wrap">
-                <input onKeyUp={this.searchArtists.bind(this)} type="text" placeholder="Search"/>
+                <input onKeyUp={this.searchArtists} type="text" placeholder="Search" defaultValue={this.props.selectedartist}/>
                 <div className="autocomplete">
                     {artists}
                 </div>
@@ -72,4 +29,17 @@ class SearchField extends Component{
     }
 }
 
-export default SearchField
+SearchField.propTypes = {
+    searchArtists: PropTypes.func.isRequired,
+    firstArtist: PropTypes.func.isRequired,
+    artists: PropTypes.array.isRequired,
+    artist: PropTypes.string
+};
+
+const mapStateToProps = state => ({
+    // state.searches -> naam komt van de root reducer!!
+    artists: state.searches.artists,
+    selectedartist: state.searches.artist
+});
+
+export default connect(mapStateToProps, {searchArtists, firstArtist})(SearchField);

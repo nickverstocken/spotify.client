@@ -1,0 +1,3 @@
+export const FETCH_RELATED = 'FETCH_RELATED';
+export const FETCH_ARTIST = 'FETCH_ARTIST';
+export const FETCH_TOP_TRACKS = 'FETCH_TOP_TRACKS';

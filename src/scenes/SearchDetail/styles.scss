@@ -1,0 +1,68 @@
+.artistHeading{
+  .imageWrap{
+    height:250px;
+    margin: -20px -50px;
+  }
+  img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display: block;
+    transition: all 0.2s ease;
+
+  }
+}
+.play {
+  position:absolute;
+  left:50%;
+  margin-left:-7px;
+  top:50%;
+  margin-top:-25px;
+  transition: 0.2s ease;
+  width:50px;
+  height:50px;
+  left:50%;
+  background-color:rgba(255,255,255,0.5);
+  -webkit-clip-path: polygon(0 20%, 40% 50%, 40% 50%, 0 80%);
+  clip-path: polygon(0 20%, 40% 50%, 40% 50%, 0 80%);
+
+}
+.stop {
+
+  -ms-transform: translate(-5px, 0px); /* IE 9 */
+  -webkit-transform: translate(-5px, 0px); /* Safari */
+  transform: translate(-5px, 0px);
+  -webkit-clip-path: polygon(0 25%, 48% 25%, 48% 75%, 0 75%);
+  clip-path: polygon(0 25%, 48% 25%, 48% 75%, 0 75%);
+}
+.playwrap{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color:rgba(0,0,0,0.3);
+  position:relative;
+  border:3px solid rgba(255,255,255,0.0);
+  margin-top:15px;
+  margin-bottom:15px;
+  margin-right:15px;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  cursor:pointer;
+  float:left;
+  z-index:2;
+}
+.stop ~ .spin{
+  position:absolute;
+  top:-7px;
+  left:-7px;
+  width:70px;
+  z-index:-1;
+  height:70px;
+  border-radius:50%;
+  border: 0.5rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: #77A830;
+  border-style: double;
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
